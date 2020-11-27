@@ -36,13 +36,13 @@ class CollectionViewController: UICollectionViewController {
     // MARK: -UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu<UIAction>? in
-            let action = UIAction(__title: "Archive", image: UIImage(systemName: "archivebox.fill"), options: .destructive) { action in
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let action = UIAction(title: "Archive", image: UIImage(systemName: "archivebox.fill"), identifier: UIAction.Identifier(rawValue: "archive")) { action in
                 let alert = UIAlertController(title: action.title, message: nil, preferredStyle: .alert)
                 alert.addAction(.init(title: "OK", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
-            return UIMenu<UIAction>.create(title: "Menu", children: [action])
+            return UIMenu(title: "Menu", children: [action])
         }
         return configuration
     }

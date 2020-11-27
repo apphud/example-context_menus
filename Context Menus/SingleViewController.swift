@@ -41,26 +41,26 @@ class SingleViewController: UIViewController {
 
 extension SingleViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu<UIAction>? in
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             // Creating Save button
-            let save = UIAction(__title: "Save", image: UIImage(systemName: "tray.and.arrow.down.fill"), options: []) { action in
+            let save = UIAction(title: "Save", image: UIImage(systemName: "tray.and.arrow.down.fill"), identifier: .init("save")) { action in
                 // Just showing some alert
                 self.showAlert(title: action.title)
             }
 
             // Creating Rotate button
-            let rotate = UIAction(__title: "Rotate", image: UIImage(systemName: "arrow.counterclockwise"), options: []) { action in
+            let rotate = UIAction(title: "Rotate", image: UIImage(systemName: "arrow.counterclockwise"), identifier: UIAction.Identifier(rawValue: "rotate")) { action in
                 self.showAlert(title: action.title)
             }
             // Creating Delete button
-            let delete = UIAction(__title: "Delete", image: UIImage(systemName: "trash.fill"), options: .destructive) { action in
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash.fill"), identifier: UIAction.Identifier(rawValue: "delete")) { action in
                 self.showAlert(title: action.title)
             }
             // Creating Edit, which will open Submenu
-            let edit = UIMenu<UIAction>.create(title: "Edit...", children: [rotate, delete])
-
+            let edit = UIMenu(title: "Edit...", children: [rotate, delete])
+            
             // Creating main context menu
-            return UIMenu<UIAction>.create(title: "Menu", children: [save, edit])
+            return UIMenu(title: "Menu", children: [save, edit])
         }
         return configuration
     }
