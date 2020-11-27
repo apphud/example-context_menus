@@ -49,20 +49,15 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
             return PreviewViewController.controller()
-        }) { _ -> UIMenu<UIAction>? in
-            let action = UIAction(__title: "Custom action", image: nil, options: []) { action in
+        }) { _ -> UIMenu? in
+            let action = UIAction(title: "Custom action", image: nil, identifier: UIAction.Identifier(rawValue: "custom identifier")) { action in
                 self.showAlert(title: action.title)
             }
-            return UIMenu<UIAction>.create(title: "Menu", children: [action])
+            return UIMenu(title: "Menu", children: [action])
         }
         return configuration
     }
     
-    override func tableView(_ tableView: UITableView, willCommitMenuWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
-        animator.addCompletion {
-            self.showAlert(title: "Row preview tapped")
-        }
-    }
 }
 
 
